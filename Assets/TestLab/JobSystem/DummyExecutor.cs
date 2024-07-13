@@ -69,7 +69,7 @@ public class DummyExecutor : MonoBehaviour
             for (int i = 0; i < _numJobs; i++)
                 _jobHandles.Add(new DummyJob(baseNum + (i < remainNum ? 1 : 0)).Schedule());
             
-            JobHandle.CompleteAll(_jobHandles); // call right away?
+            JobHandle.CompleteAll(_jobHandles.AsArray()); // call right away?
             yield return null;
         }
     }
