@@ -1,15 +1,13 @@
-using System;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
-    [SerializeField] private LegoMan legoMan;
-    
-    private LegoDirector<LegoMan> legoDirector;
+    private LegoDirector<LegoManSet> legoDirector;
     
     private void Start()
     {
-        legoDirector = new LegoDirector<LegoMan>(new LegoManBuilder());
-        LegoMan newLegoMan = legoDirector.Assemble(legoMan);
+        legoDirector = new LegoDirector<LegoManSet>(new LegoManBuilder());
+        //legoDirector.AddBuildStep(s => s.AddPiece());
+        LegoManSet newLegoMan = legoDirector.Assemble();
     }
 }
