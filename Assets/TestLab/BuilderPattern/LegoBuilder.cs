@@ -1,15 +1,21 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public interface ILegoBuilder<T> where T : LegoSet
 {
-    ILegoBuilder<T> AddPiece(LegoPiece<T> legoPiece);
+    List<LegoPiece<T>> GetAssembleOrder();
+    
+    ILegoBuilder<T> AssemblePiece(LegoPiece<T> legoPiece);
     
     T Build();
 }
 
 public abstract class LegoBuilder<T> : ILegoBuilder<T> where T : LegoSet
 {
-    public abstract ILegoBuilder<T> AddPiece(LegoPiece<T> legoPiece);
+    public abstract List<LegoPiece<T>> GetAssembleOrder();
+
+    public abstract ILegoBuilder<T> AssemblePiece(LegoPiece<T> legoPiece);
 
     public abstract T Build();
 }
@@ -17,8 +23,15 @@ public abstract class LegoBuilder<T> : ILegoBuilder<T> where T : LegoSet
 public class LegoManBuilder : LegoBuilder<LegoManSet>
 {
     private LegoManSet legoManSet = new GameObject("LegoMan").AddComponent<LegoManSet>();
-
-    public override ILegoBuilder<LegoManSet> AddPiece(LegoPiece<LegoManSet> legoPiece)
+    
+    public override List<LegoPiece<LegoManSet>> GetAssembleOrder()
+    {
+        var pieces = Object.FindObjectsByType<LegoPiece<LegoManSet>>(FindObjectsSortMode.None);
+        List<LegoPiece<LegoManSet>> sorted = pieces.OrderBy(p => p.Priority).ToList();
+        return sorted;
+    }
+    
+    public override ILegoBuilder<LegoManSet> AssemblePiece(LegoPiece<LegoManSet> legoPiece)
     {
         if (!legoPiece.CanAssemble(legoManSet))
         {

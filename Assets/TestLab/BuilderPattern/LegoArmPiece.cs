@@ -2,6 +2,8 @@
 
 public class LegoArmPiece : LegoPiece<LegoManSet>
 {
+    public Transform HandSlot;
+    
     public override bool CanAssemble(LegoManSet legoSet)
     {
         if (legoSet.Body == null)
@@ -11,16 +13,22 @@ public class LegoArmPiece : LegoPiece<LegoManSet>
         }
 
         if (legoSet.ArmLeft != null && legoSet.ArmRight != null)
-        {
-            Debug.Log($"[LegoArmPiece] No remaining slots.");
             return false;
-        }
-        
         return true;
     }
 
     public override void Assemble(LegoManSet legoSet)
     {
-        legoSet.Body.AddArmPiece(this);
+        if (legoSet.ArmLeft == null)
+        {
+            legoSet.ArmLeft = this;
+            transform.SetParent(legoSet.Body.LeftArmSlot);
+        }
+        else
+        {
+            legoSet.ArmRight = this;
+            transform.SetParent(legoSet.Body.RightArmSlot);
+        }
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 }

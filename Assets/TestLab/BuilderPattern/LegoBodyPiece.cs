@@ -2,23 +2,24 @@ using UnityEngine;
 
 public class LegoBodyPiece : LegoPiece<LegoManSet>
 {
-    [SerializeField] private Transform headSlot;
-    [SerializeField] private Transform hipSlot;
-    [SerializeField] private Transform leftArmSlot;
-    [SerializeField] private Transform rightArmSlot;
+    public Transform HeadSlot;
+    public Transform HipSlot;
+    public Transform LeftArmSlot;
+    public Transform RightArmSlot;
     
-    public override bool CanAssemble(LegoManSet set)
+    public override bool CanAssemble(LegoManSet legoSet)
     {
-        throw new System.NotImplementedException();
+        if (legoSet.Body != null)
+        {
+            return false;
+        }
+        return true;
     }
 
     public override void Assemble(LegoManSet legoSet)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void AddArmPiece(LegoArmPiece armPiece)
-    {
-        
+        legoSet.Body = this;
+        transform.SetParent(legoSet.transform);
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 }

@@ -1,27 +1,32 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LegoDirector<T> where T : LegoSet
 {
     private ILegoBuilder<T> builder;
-    private List<Action<ILegoBuilder<T>>> buildSteps;
+    private List<LegoPiece<T>> buildSteps;
 
     public LegoDirector(ILegoBuilder<T> builder)
     {
         this.builder = builder;
-        buildSteps = new List<Action<ILegoBuilder<T>>>();
+        buildSteps = new List<LegoPiece<T>>();
     }
 
-    public void AddBuildStep(Action<ILegoBuilder<T>> step)
+    public void AddBuildSteps(List<LegoPiece<T>> steps)
     {
-        buildSteps.Add(step);
+        buildSteps = steps;
     }
     
     public T Assemble()
     {
-        foreach (Action<ILegoBuilder<T>> step in buildSteps)
-            step(builder);
+        if (buildSteps == null)
+        {
+            Debug.Log($"[LegoDirector] Assemble fail");
+            return null;
+        }
+        
+        foreach (LegoPiece<T> piece in buildSteps)
+            builder.AssemblePiece(piece);
         
         return builder.Build();
     }

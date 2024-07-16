@@ -2,13 +2,32 @@ using UnityEngine;
 
 public class LegoHandPiece : LegoPiece<LegoManSet>
 {
-    public override bool CanAssemble(LegoManSet set)
+    public override bool CanAssemble(LegoManSet legoSet)
     {
-        throw new System.NotImplementedException();
+        if (legoSet.ArmLeft == null && legoSet.ArmRight == null)
+        {
+            return false;
+        }
+
+        if (legoSet.HandLeft != null && legoSet.HandRight != null)
+        {
+            return false;
+        }
+        return true;
     }
 
     public override void Assemble(LegoManSet legoSet)
     {
-        throw new System.NotImplementedException();
+        if (legoSet.HandLeft == null)
+        {
+            legoSet.HandLeft = this;
+            transform.SetParent(legoSet.ArmLeft.HandSlot);
+        }
+        else
+        {
+            legoSet.HandRight = this;
+            transform.SetParent(legoSet.ArmRight.HandSlot);
+        }
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 }
