@@ -30,5 +30,19 @@ public class LegoDirector<T> where T : LegoSet
         
         return builder.Build();
     }
+
+    public T SmoothAssemble(float delayIncrement)
+    {
+        if (buildSteps == null)
+        {
+            Debug.Log($"[LegoDirector] Assemble fail");
+            return null;
+        }
+        
+        foreach (LegoPiece<T> piece in buildSteps)
+            builder.AssemblePieceAfterIncrementalDelay(piece, delayIncrement);
+        
+        return builder.Build();
+    }
 }
  

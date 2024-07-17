@@ -12,8 +12,9 @@ public class LegoArmPiece : LegoPiece<LegoManSet>
             return false;
         }
 
-        if (legoSet.ArmLeft != null && legoSet.ArmRight != null)
-            return false;
+        if (legoSet.ArmLeft != null && legoSet.ArmRight != null) return false;
+        
+        if (smoothAssembleCoroutine != null) return false;
         return true;
     }
 
@@ -30,5 +31,20 @@ public class LegoArmPiece : LegoPiece<LegoManSet>
             transform.SetParent(legoSet.Body.RightArmSlot);
         }
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+    }
+
+    public override void AssembleAfterDelay(LegoManSet legoSet, float delay)
+    {
+        if (legoSet.ArmLeft == null)
+        {
+            legoSet.ArmLeft = this;
+            smoothAssembleCoroutine = SmoothAssemble(legoSet.Body.LeftArmSlot, smoothAssembleDuration, delay);
+        }
+        else
+        {
+            legoSet.ArmRight = this;
+            smoothAssembleCoroutine = SmoothAssemble(legoSet.Body.RightArmSlot, smoothAssembleDuration, delay);
+        }
+        StartCoroutine(smoothAssembleCoroutine);
     }
 }

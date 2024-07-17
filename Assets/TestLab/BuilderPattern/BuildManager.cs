@@ -3,9 +3,6 @@ using UnityEngine.UI;
 
 public class BuildManager : MonoBehaviour
 {
-    [SerializeField] private Button assembleButton;
-    [SerializeField] private Button disassembleButton;
-
     private LegoBuilder<LegoManSet> legoManBuilder;
     private LegoDirector<LegoManSet> legoDirector;
     
@@ -18,7 +15,7 @@ public class BuildManager : MonoBehaviour
 
     public void Assemble()
     {
-        LegoManSet legoMan = legoDirector.Assemble();
+        LegoManSet legoMan = legoDirector.SmoothAssemble(0.3f);
     }
 
     public void Disassemble()

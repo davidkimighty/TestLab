@@ -248,12 +248,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224178617}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.99565107, z: -0, w: 0.093161315}
-  m_LocalPosition: {x: -0.0000476, y: 0, z: -0.00009640005}
+  m_LocalRotation: {x: -0.065875, y: -0.7040316, z: 0.7040316, w: 0.065875}
+  m_LocalPosition: {x: -0.000047600006, y: 0.000022571385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1752181167390542111}
+  m_Father: {fileID: 1887942925}
   m_LocalEulerAnglesHint: {x: 79.309, y: -90, z: 90}
 --- !u!1 &427758723
 GameObject:
@@ -265,6 +265,8 @@ GameObject:
   m_Component:
   - component: {fileID: 427758724}
   - component: {fileID: 427758725}
+  - component: {fileID: 427758726}
+  - component: {fileID: 427758727}
   m_Layer: 0
   m_Name: LegoMan.Hip
   m_TagString: Untagged
@@ -302,7 +304,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 1
+  body: {fileID: 427758726}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   LegSlot: {fileID: 1108323959}
+--- !u!54 &427758726
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427758723}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!65 &427758727
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427758723}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00015, y: 0.00008, z: 0.00012}
+  m_Center: {x: 0, y: 0, z: -0.00003}
 --- !u!1 &455167135
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,12 +412,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455167135}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00017680002}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.00005782865, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1752181167390542111}
+  m_Father: {fileID: 1887942925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &629904336
 GameObject:
@@ -617,8 +702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0467e1c8fa205941a24a8ac072d439a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  assembleButton: {fileID: 0}
-  disassembleButton: {fileID: 0}
 --- !u!4 &743045196
 Transform:
   m_ObjectHideFlags: 0
@@ -675,6 +758,8 @@ GameObject:
   m_Component:
   - component: {fileID: 819915607}
   - component: {fileID: 819915608}
+  - component: {fileID: 819915609}
+  - component: {fileID: 819915610}
   m_Layer: 0
   m_Name: LegoMan.Hand.R
   m_TagString: Untagged
@@ -711,6 +796,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 2
+  body: {fileID: 819915609}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!54 &819915609
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819915606}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!136 &819915610
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819915606}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.00003
+  m_Height: 0.0001
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.00002}
 --- !u!1 &840942202
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,12 +905,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840942202}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.09316377, z: 0.000000011175871, w: 0.9956509}
-  m_LocalPosition: {x: 0.0000476, y: 0, z: -0.00009640005}
+  m_LocalRotation: {x: -0.70403147, y: -0.06587672, z: 0.06587674, w: 0.70403147}
+  m_LocalPosition: {x: 0.000047600006, y: 0.000022571385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1752181167390542111}
+  m_Father: {fileID: 1887942925}
   m_LocalEulerAnglesHint: {x: 0, y: -10.691, z: 0}
 --- !u!1 &857198771
 GameObject:
@@ -789,6 +959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 998620616}
   - component: {fileID: 998620617}
+  - component: {fileID: 998620618}
   m_Layer: 0
   m_Name: LegoMan.Arm.L
   m_TagString: Untagged
@@ -811,6 +982,7 @@ Transform:
   m_Children:
   - {fileID: 3791595756066516100}
   - {fileID: 199305141}
+  - {fileID: 1000637966}
   m_Father: {fileID: 4730133578060693156}
   m_LocalEulerAnglesHint: {x: 0, y: -10.691, z: 0}
 --- !u!114 &998620617
@@ -826,7 +998,124 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 1
+  body: {fileID: 998620618}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   HandSlot: {fileID: 199305141}
+--- !u!54 &998620618
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998620615}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!1 &1000637965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1000637966}
+  - component: {fileID: 1000637967}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1000637966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000637965}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.15734752, z: 0.000000014901161, w: 0.98754334}
+  m_LocalPosition: {x: 0.0000031, y: -0, z: -0.0000085}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 998620616}
+  m_LocalEulerAnglesHint: {x: 0, y: -18.106, z: 0}
+--- !u!136 &1000637967
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000637965}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.00003
+  m_Height: 0.00011
+  m_Direction: 2
+  m_Center: {x: 0.00002, y: 0, z: -0.00002}
 --- !u!1 &1108323958
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +1286,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123154169}
   m_CullTransparentMesh: 1
+--- !u!1 &1123987885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1123987886}
+  - component: {fileID: 1123987887}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1123987886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123987885}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000004470348, y: -0.9898235, z: -0.00000004097819, w: 0.14230089}
+  m_LocalPosition: {x: 0.000002, y: -0, z: 0.0000069}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1285746990}
+  m_LocalEulerAnglesHint: {x: 0, y: -163.638, z: 0}
+--- !u!136 &1123987887
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123987885}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.00003
+  m_Height: 0.00011
+  m_Direction: 2
+  m_Center: {x: -0.00002, y: 0, z: -0.00002}
 --- !u!1 &1155708784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,6 +1488,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1177476945}
   - component: {fileID: 1177476946}
+  - component: {fileID: 1177476947}
+  - component: {fileID: 1177476948}
   m_Layer: 0
   m_Name: LegoMan.Hand.L
   m_TagString: Untagged
@@ -1180,6 +1526,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 2
+  body: {fileID: 1177476947}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!54 &1177476947
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177476944}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!136 &1177476948
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177476944}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.00003
+  m_Height: 0.0001
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.00002}
 --- !u!1 &1285746989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,6 +1621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1285746990}
   - component: {fileID: 1285746991}
+  - component: {fileID: 1285746992}
   m_Layer: 0
   m_Name: LegoMan.Arm.R
   m_TagString: Untagged
@@ -1212,6 +1644,7 @@ Transform:
   m_Children:
   - {fileID: 1385845161092027658}
   - {fileID: 793433895}
+  - {fileID: 1123987886}
   m_Father: {fileID: 4730133578060693156}
   m_LocalEulerAnglesHint: {x: 79.309, y: -90, z: 90}
 --- !u!114 &1285746991
@@ -1227,7 +1660,69 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 1
+  body: {fileID: 1285746992}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   HandSlot: {fileID: 793433895}
+--- !u!54 &1285746992
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285746989}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
 --- !u!1 &1324054073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,12 +1886,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394934710}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.00011897141, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1752181167390542111}
+  m_Father: {fileID: 1887942925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1667360194
 GameObject:
@@ -1590,6 +2085,145 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1887942924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887942925}
+  - component: {fileID: 1887942926}
+  - component: {fileID: 1887942927}
+  - component: {fileID: 1887942928}
+  m_Layer: 0
+  m_Name: LegoMan.Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1887942925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887942924}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.02345, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1752181167390542111}
+  - {fileID: 1394934711}
+  - {fileID: 455167136}
+  - {fileID: 840942203}
+  - {fileID: 224178618}
+  m_Father: {fileID: 4730133578060693156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1887942926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887942924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4c378e6968bab47b1b3306226d3e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Priority: 0
+  body: {fileID: 1887942927}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  HeadSlot: {fileID: 1394934711}
+  HipSlot: {fileID: 455167136}
+  LeftArmSlot: {fileID: 840942203}
+  RightArmSlot: {fileID: 224178618}
+--- !u!54 &1887942927
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887942924}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!65 &1887942928
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887942924}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00015, y: 0.00013, z: 0.00008}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1910783210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,7 +2355,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1954009480}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 743045195}
+        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
+        m_MethodName: Disassemble
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1954009480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1891,9 +2537,8 @@ GameObject:
   - component: {fileID: 1752181167390542111}
   - component: {fileID: 6463338727225220093}
   - component: {fileID: 8545802374099763004}
-  - component: {fileID: 8545802374099763005}
   m_Layer: 0
-  m_Name: LegoMan.Body
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1941,6 +2586,8 @@ GameObject:
   - component: {fileID: 2826884675733063115}
   - component: {fileID: 5284901771740332016}
   - component: {fileID: 5901355607811830097}
+  - component: {fileID: 5901355607811830099}
+  - component: {fileID: 5901355607811830100}
   m_Layer: 0
   m_Name: LegoMan.Leg.R
   m_TagString: Untagged
@@ -1956,16 +2603,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116163083245907033}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.03534714, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.00011897141, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1394934711}
-  - {fileID: 455167136}
-  - {fileID: 840942203}
-  - {fileID: 224178618}
-  m_Father: {fileID: 4730133578060693156}
+  m_Children: []
+  m_Father: {fileID: 1887942925}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &2392389451006676567
 MeshFilter:
@@ -1987,6 +2630,8 @@ GameObject:
   - component: {fileID: 3276120214890164942}
   - component: {fileID: 164609470812564546}
   - component: {fileID: 3276120214890164943}
+  - component: {fileID: 3276120214890164945}
+  - component: {fileID: 3276120214890164946}
   m_Layer: 0
   m_Name: LegoMan.Head
   m_TagString: Untagged
@@ -2023,6 +2668,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 1
+  body: {fileID: 3276120214890164945}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!54 &3276120214890164945
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474514947798774852}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!136 &3276120214890164946
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2474514947798774852}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.00005
+  m_Height: 0.00013
+  m_Direction: 2
+  m_Center: {x: 0, y: 1.7347235e-18, z: 0.0000023000093}
 --- !u!33 &3278582768162315037
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2149,7 +2879,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1018355001201711170}
-  - {fileID: 1752181167390542111}
+  - {fileID: 1887942925}
   - {fileID: 427758724}
   - {fileID: 998620616}
   - {fileID: 1285746990}
@@ -2347,6 +3077,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 2
+  body: {fileID: 5901355607811830099}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!54 &5901355607811830099
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701037962423335660}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!65 &5901355607811830100
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701037962423335660}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00007335792, y: 0.00007840003, z: 0.00015275938}
+  m_Center: {x: -0.00004337896, y: 0.0000034672005, z: -0.000040482817}
 --- !u!33 &6151903333348559355
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2412,6 +3225,8 @@ GameObject:
   - component: {fileID: 6151903333348559355}
   - component: {fileID: 9119464190985309130}
   - component: {fileID: 9119464190985309131}
+  - component: {fileID: 9119464190985309133}
+  - component: {fileID: 9119464190985309134}
   m_Layer: 0
   m_Name: LegoMan.Leg.L
   m_TagString: Untagged
@@ -2518,23 +3333,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8545802374099763005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116163083245907033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa4c378e6968bab47b1b3306226d3e4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Priority: 0
-  HeadSlot: {fileID: 1394934711}
-  HipSlot: {fileID: 455167136}
-  LeftArmSlot: {fileID: 840942203}
-  RightArmSlot: {fileID: 224178618}
 --- !u!23 &8566397682538979270
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2638,6 +3436,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 2
+  body: {fileID: 9119464190985309133}
+  smoothAssembleDuration: 0.5
+  smoothAssembleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8622554
+      value: 1.0545311
+      inSlope: 2.5847518
+      outSlope: 2.5847518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16556151
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005464435
+      outSlope: 0.005464435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8211919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!54 &9119464190985309133
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6229367096402300050}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 3
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 8
+  m_CollisionDetection: 0
+--- !u!65 &9119464190985309134
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6229367096402300050}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00007335792, y: 0.00007840003, z: 0.00015275938}
+  m_Center: {x: 0.000043325635, y: 0.0000034672005, z: -0.000040482817}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
