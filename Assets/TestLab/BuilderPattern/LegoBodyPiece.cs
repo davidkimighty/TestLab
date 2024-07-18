@@ -4,31 +4,35 @@ public class LegoBodyPiece : LegoPiece<LegoManSet>
 {
     public Transform HeadSlot;
     public Transform HipSlot;
-    public Transform LeftArmSlot;
-    public Transform RightArmSlot;
-    
-    public override bool CanAssemble(LegoManSet legoSet)
-    {
-        if (legoSet.Body != null) return false;
-        
-        if (smoothAssembleCoroutine != null) return false;
-        return true;
-    }
+    public Slot LeftArmSlot;
+    public Slot RightArmSlot;
 
     public override void Assemble(LegoManSet legoSet)
     {
-        legoSet.Body = this;
+        if (smoothAssembleCoroutine != null) return;
+        
+        if (!legoSet.AddBody(this, out Transform target)) return;
 
         body.isKinematic = true;
-        transform.SetParent(legoSet.transform);
+        transform.SetParent(target);
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
     public override void AssembleAfterDelay(LegoManSet legoSet, float delay)
     {
-        legoSet.Body = this;
+        if (smoothAssembleCoroutine != null) return;
         
-        smoothAssembleCoroutine = SmoothAssemble(legoSet.transform, smoothAssembleDuration, 0f, false);
+        if (!legoSet.AddBody(this, out Transform target)) return;
+        
+        smoothAssembleCoroutine = SmoothAssemble(target, smoothAssembleDuration, 0f, false);
         StartCoroutine(smoothAssembleCoroutine);
+    }
+
+    public override void Disassemble()
+    {
+        base.Disassemble();
+
+        LeftArmSlot.IsFull = false;
+        RightArmSlot.IsFull = false;
     }
 }

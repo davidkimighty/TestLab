@@ -27,8 +27,8 @@ public abstract class LegoBuilder<T> : ILegoBuilder<T> where T : LegoSet
 public class LegoManBuilder : LegoBuilder<LegoManSet>
 {
     private LegoManSet legoManSet = new GameObject("LegoMan").AddComponent<LegoManSet>();
-    private float incrementalDelay = 0f;
-    
+    private float incrementalDelay;
+
     public override List<LegoPiece<LegoManSet>> GetAssembleOrder()
     {
         var pieces = Object.FindObjectsByType<LegoPiece<LegoManSet>>(FindObjectsSortMode.None);
@@ -38,24 +38,12 @@ public class LegoManBuilder : LegoBuilder<LegoManSet>
     
     public override ILegoBuilder<LegoManSet> AssemblePiece(LegoPiece<LegoManSet> legoPiece)
     {
-        if (!legoPiece.CanAssemble(legoManSet))
-        {
-            Debug.Log($"[LegoManBuilder] Unable to assemble {legoPiece.name}");
-            return this;
-        }
-
         legoPiece.Assemble(legoManSet);
         return this;
     }
 
     public override ILegoBuilder<LegoManSet> AssemblePieceAfterIncrementalDelay(LegoPiece<LegoManSet> legoPiece, float delay)
     {
-        if (!legoPiece.CanAssemble(legoManSet))
-        {
-            Debug.Log($"[LegoManBuilder] Unable to assemble {legoPiece.name}");
-            return this;
-        }
-
         incrementalDelay += delay;
         legoPiece.AssembleAfterDelay(legoManSet, incrementalDelay);
         return this;
@@ -63,6 +51,7 @@ public class LegoManBuilder : LegoBuilder<LegoManSet>
 
     public override LegoManSet Build()
     {
+        incrementalDelay = 0f;
         return legoManSet;
     }
 }

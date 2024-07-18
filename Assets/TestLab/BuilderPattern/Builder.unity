@@ -319,8 +319,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0
@@ -702,6 +702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0467e1c8fa205941a24a8ac072d439a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayIncrement: 0.3
 --- !u!4 &743045196
 Transform:
   m_ObjectHideFlags: 0
@@ -811,8 +812,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0
@@ -1013,8 +1014,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0
@@ -1033,7 +1034,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  HandSlot: {fileID: 199305141}
+  HandSlot:
+    Anchor: {fileID: 199305141}
+    IsFull: 0
 --- !u!54 &998620618
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1541,8 +1544,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0
@@ -1675,8 +1678,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0
@@ -1695,7 +1698,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  HandSlot: {fileID: 793433895}
+  HandSlot:
+    Anchor: {fileID: 793433895}
+    IsFull: 0
 --- !u!54 &1285746992
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2152,8 +2157,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0
@@ -2174,8 +2179,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   HeadSlot: {fileID: 1394934711}
   HipSlot: {fileID: 455167136}
-  LeftArmSlot: {fileID: 840942203}
-  RightArmSlot: {fileID: 224178618}
+  LeftArmSlot:
+    Anchor: {fileID: 840942203}
+    IsFull: 0
+  RightArmSlot:
+    Anchor: {fileID: 224178618}
+    IsFull: 0
 --- !u!54 &1887942927
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2683,8 +2692,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0
@@ -3092,8 +3101,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0
@@ -3451,8 +3460,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8622554
-      value: 1.0545311
+      time: 0.7007046
+      value: 1.0006531
       inSlope: 2.5847518
       outSlope: 2.5847518
       tangentMode: 0

@@ -1,10 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BuildManager : MonoBehaviour
 {
+    [SerializeField] private float delayIncrement = 0.3f;
+    
     private LegoBuilder<LegoManSet> legoManBuilder;
     private LegoDirector<LegoManSet> legoDirector;
+    private LegoManSet legoMan;
     
     private void Start()
     {
@@ -15,11 +17,13 @@ public class BuildManager : MonoBehaviour
 
     public void Assemble()
     {
-        LegoManSet legoMan = legoDirector.SmoothAssemble(0.3f);
+        legoMan = legoDirector.SmoothAssemble(delayIncrement);
     }
 
     public void Disassemble()
     {
+        if (legoMan == null) return;
         
+        legoMan.Disassemble();
     }
 }

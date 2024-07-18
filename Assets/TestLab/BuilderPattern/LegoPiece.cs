@@ -1,5 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine;
+
+[Serializable]
+public class Slot
+{
+    public Transform Anchor;
+    public bool IsFull;
+}
 
 public abstract class LegoPiece<T> : MonoBehaviour where T : LegoSet
 {
@@ -11,11 +19,26 @@ public abstract class LegoPiece<T> : MonoBehaviour where T : LegoSet
     
     protected IEnumerator smoothAssembleCoroutine;
     
-    public abstract bool CanAssemble(T legoSet);
-
     public abstract void Assemble(T legoSet);
 
     public abstract void AssembleAfterDelay(T legoSet, float delay);
+
+    public virtual void Disassemble()
+    {
+        if (smoothAssembleCoroutine != null)
+            StopCoroutine(smoothAssembleCoroutine);
+        smoothAssembleCoroutine = null;
+        
+        transform.SetParent(null);
+        
+        if (body == null)
+        {
+            body = gameObject.AddComponent<Rigidbody>();
+            body.useGravity = false;
+            body.linearDamping = 5;
+            body.angularDamping = 3;
+        }
+    }
     
     protected virtual IEnumerator SmoothAssemble(Transform target, float duration, float delay, bool removeBody = true)
     {
