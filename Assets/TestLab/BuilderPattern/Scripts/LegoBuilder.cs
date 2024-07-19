@@ -26,8 +26,13 @@ public abstract class LegoBuilder<T> : ILegoBuilder<T> where T : LegoSet
 
 public class LegoManBuilder : LegoBuilder<LegoManSet>
 {
-    private LegoManSet legoManSet = new GameObject("LegoMan").AddComponent<LegoManSet>();
+    private LegoManSet legoManSet;
     private float incrementalDelay;
+
+    public LegoManBuilder(LegoManSet legoManSet)
+    {
+        this.legoManSet = !legoManSet.gameObject.activeInHierarchy ? Object.Instantiate(legoManSet) : legoManSet;
+    }
 
     public override List<LegoPiece<LegoManSet>> GetAssembleOrder()
     {

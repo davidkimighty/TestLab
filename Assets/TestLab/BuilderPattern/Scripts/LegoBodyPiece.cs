@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class LegoBodyPiece : LegoPiece<LegoManSet>
 {
-    public Transform HeadSlot;
-    public Transform HipSlot;
+    public Slot HeadSlot;
+    public Slot HipSlot;
     public Slot LeftArmSlot;
     public Slot RightArmSlot;
 
@@ -11,10 +11,10 @@ public class LegoBodyPiece : LegoPiece<LegoManSet>
     {
         if (smoothAssembleCoroutine != null) return;
         
-        if (!legoSet.AddBody(this, out Transform target)) return;
+        if (!legoSet.AddBody(this)) return;
 
         body.isKinematic = true;
-        transform.SetParent(target);
+        transform.SetParent(legoSet.transform);
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
@@ -22,9 +22,9 @@ public class LegoBodyPiece : LegoPiece<LegoManSet>
     {
         if (smoothAssembleCoroutine != null) return;
         
-        if (!legoSet.AddBody(this, out Transform target)) return;
+        if (!legoSet.AddBody(this)) return;
         
-        smoothAssembleCoroutine = SmoothAssemble(target, smoothAssembleDuration, 0f, false);
+        smoothAssembleCoroutine = SmoothAssemble(legoSet.transform, 0f, false, false);
         StartCoroutine(smoothAssembleCoroutine);
     }
 

@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class LegoLegPiece : LegoPiece<LegoManSet>
+public class LegoHipPiece : LegoPiece<LegoManSet>
 {
+    public Slot LegSlot;
+    
     public override void Assemble(LegoManSet legoSet)
     {
         if (smoothAssembleCoroutine != null) return;
         
-        if (!legoSet.AddLeg(this, out Transform target)) return;
-
+        if (!legoSet.AddHip(this, out Slot target)) return;
+        
         body.isKinematic = true;
-        transform.SetParent(target);
+        transform.SetParent(target.Anchor);
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
@@ -17,9 +19,9 @@ public class LegoLegPiece : LegoPiece<LegoManSet>
     {
         if (smoothAssembleCoroutine != null) return;
         
-        if (!legoSet.AddLeg(this, out Transform target)) return;
+        if (!legoSet.AddHip(this, out Slot target)) return;
         
-        smoothAssembleCoroutine = SmoothAssemble(target, smoothAssembleDuration, delay);
+        smoothAssembleCoroutine = SmoothWaypointAssemble(target, delay);
         StartCoroutine(smoothAssembleCoroutine);
     }
 }

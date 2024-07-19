@@ -8,9 +8,9 @@ public class LegoArmPiece : LegoPiece<LegoManSet>
     {
         if (smoothAssembleCoroutine != null) return;
         
-        if (!legoSet.AddArm(this, out Transform target)) return;
+        if (!legoSet.AddArm(this, out Slot target)) return;
         
-        transform.SetParent(target);
+        transform.SetParent(target.Anchor);
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
@@ -18,9 +18,9 @@ public class LegoArmPiece : LegoPiece<LegoManSet>
     {
         if (smoothAssembleCoroutine != null) return;
         
-        if (!legoSet.AddArm(this, out Transform target)) return;
+        if (!legoSet.AddArm(this, out Slot target)) return;
         
-        smoothAssembleCoroutine = SmoothAssemble(target, smoothAssembleDuration, delay);
+        smoothAssembleCoroutine = SmoothWaypointAssemble(target, delay);
         StartCoroutine(smoothAssembleCoroutine);
     }
 

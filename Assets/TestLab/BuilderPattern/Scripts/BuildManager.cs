@@ -3,6 +3,7 @@ using UnityEngine;
 public class BuildManager : MonoBehaviour
 {
     [SerializeField] private float delayIncrement = 0.3f;
+    [SerializeField] private LegoManSet _legoManSet;
     
     private LegoBuilder<LegoManSet> legoManBuilder;
     private LegoDirector<LegoManSet> legoDirector;
@@ -10,7 +11,7 @@ public class BuildManager : MonoBehaviour
     
     private void Start()
     {
-        legoManBuilder = new LegoManBuilder();
+        legoManBuilder = new LegoManBuilder(_legoManSet);
         legoDirector = new LegoDirector<LegoManSet>(legoManBuilder);
         legoDirector.AddBuildSteps(legoManBuilder.GetAssembleOrder());
     }

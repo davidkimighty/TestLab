@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class LegoManSet : LegoSet
 {
+    [SerializeField] private LegoPieceSettings settings;
+    
     private LegoHeadPiece head;
     private LegoBodyPiece body;
     private LegoHipPiece hip;
     private List<LegoArmPiece> arms = new();
     private List<LegoHandPiece> hands = new();
     private List<LegoLegPiece> legs = new();
-    
+
     public override void Disassemble()
     {
-        head.Disassemble();
-        body.Disassemble();
-        hip.Disassemble();
+        head?.Disassemble();
+        body?.Disassemble();
+        hip?.Disassemble();
         
         foreach (LegoArmPiece arm in arms)
             arm.Disassemble();
@@ -26,74 +28,74 @@ public class LegoManSet : LegoSet
         foreach (LegoLegPiece leg in legs)
             leg.Disassemble();
 
-        head = null;
-        body = null;
-        hip = null;
+        head = null; body = null; hip = null;
         arms.Clear();
         hands.Clear();
         legs.Clear();
     }
 
-    public bool AddHead(LegoHeadPiece head, out Transform target)
+    public bool AddHead(LegoHeadPiece head, out Slot target)
     {
         target = null;
         if (this.head != null || body == null) return false;
 
+        head.Setup(settings);
         this.head = head;
         target = body.HeadSlot;
         return true;
     }
 
-    public bool AddBody(LegoBodyPiece body, out Transform target)
+    public bool AddBody(LegoBodyPiece body)
     {
-        target = null;
         if (this.body != null) return false;
 
+        body.Setup(settings);
         this.body = body;
-        target = transform;
         return true;
     }
 
-    public bool AddHip(LegoHipPiece hip, out Transform target)
+    public bool AddHip(LegoHipPiece hip, out Slot target)
     {
         target = null;
         if (this.hip != null || body == null) return false;
 
+        hip.Setup(settings);
         this.hip = hip;
         target = body.HipSlot;
         return true;
     }
 
-    public bool AddArm(LegoArmPiece arm, out Transform target)
+    public bool AddArm(LegoArmPiece arm, out Slot target)
     {
         target = null;
         if (arms.Count == 2 || body == null) return false;
 
+        arm.Setup(settings);
         arms.Add(arm);
-        Slot slot = !body.LeftArmSlot.IsFull ? body.LeftArmSlot : body.RightArmSlot;
-        slot.IsFull = true;
-        target = slot.Anchor;
+        target = !body.LeftArmSlot.IsFull ? body.LeftArmSlot : body.RightArmSlot;
+        target.IsFull = true;
         return true;
     }
     
-    public bool AddHand(LegoHandPiece hand, out Transform target)
+    public bool AddHand(LegoHandPiece hand, out Slot target)
     {
         target = null;
         if (hands.Count == 2 || arms.Count == 0 ||
             arms.All(arm => arm.HandSlot.IsFull)) return false;
 
+        hand.Setup(settings);
         hands.Add(hand);
-        LegoArmPiece arm = arms.First(arm => !arm.HandSlot.IsFull);
-        arm.HandSlot.IsFull = true;
-        target = arm.HandSlot.Anchor;
+        target = arms.First(arm => !arm.HandSlot.IsFull).HandSlot;
+        target.IsFull = true;
         return true;
     }
 
-    public bool AddLeg(LegoLegPiece leg, out Transform target)
+    public bool AddLeg(LegoLegPiece leg, out Slot target)
     {
         target = null;
         if (legs.Count == 2 || hip == null) return false;
 
+        leg.Setup(settings);
         legs.Add(leg);
         target = hip.LegSlot;
         return true;
