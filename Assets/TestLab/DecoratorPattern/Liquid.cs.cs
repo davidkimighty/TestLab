@@ -82,7 +82,7 @@ public class Liquid : MonoBehaviour
         lastRot = transform.rotation;
     }
 
-    public void SetFillAmount(float fill)
+    public void ChangeFillAmount(float fill)
     {
         
     }

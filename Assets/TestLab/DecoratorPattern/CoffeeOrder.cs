@@ -1,50 +1,56 @@
-using System;
 using TMPro;
 using UnityEngine;
+
+public struct CoffeeOptions
+{
+    public int Shots;
+    public int Syrups;
+    
+}
 
 public class CoffeeOrder : MonoBehaviour
 {
     [SerializeField] private TMP_Text shotText; 
-    [SerializeField] private TMP_Text syrupText; 
-    [SerializeField] private Liquid liquid;
-
-    private int shots = 1;
-    private int syrups = 0;
+    [SerializeField] private TMP_Text syrupText;
+    [SerializeField] private Coffee coffee;
+    
+    private CoffeeOptions options = new();
     
     private void Start()
     {
-        shotText.text = shots.ToString();
-        syrupText.text = syrups.ToString();
+        options.Shots = 1;
+        shotText.text = options.Shots.ToString();
+        syrupText.text = options.Syrups.ToString();
     }
 
     public void ChangeShots(bool increase)
     {
         if (increase)
         {
-            if (shots == 5) return;
-            shots++;
+            if (options.Shots == 5) return;
+            options.Shots++;
         }
         else
         {
-            if (shots == 1) return;
-            shots--;
+            if (options.Shots == 1) return;
+            options.Shots--;
         }
-        shotText.text = shots.ToString();
+        shotText.text = options.Shots.ToString();
     }
 
     public void ChangeSyrup(bool increase)
     {
         if (increase)
         {
-            if (syrups == 5) return;
-            syrups++;
+            if (options.Syrups == 5) return;
+            options.Syrups++;
         }
         else
         {
-            if (syrups == 0) return;
-            syrups--;
+            if (options.Syrups == 0) return;
+            options.Syrups--;
         }
-        syrupText.text = syrups.ToString();
+        syrupText.text = options.Syrups.ToString();
     }
     
     public void OrderCoffee()
