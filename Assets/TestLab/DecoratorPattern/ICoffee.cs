@@ -5,9 +5,9 @@ public interface ICoffee
     decimal Cost { get; set; }
     Dictionary<string, int> Ingredients { get; set; }
     
-    void Add(ICoffee coffee);
+    void Add();
 
-    void Remove(ICoffee coffee);
+    void Remove();
 
-    void Brew(ICoffee coffee);
+    void Brew();
 }

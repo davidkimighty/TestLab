@@ -1,64 +1,68 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace TestLab.DecoratorPattern
+public abstract class CoffeeDecorator : ICoffee
 {
-    public abstract class CoffeeDecorator : ICoffee
+    protected ICoffee coffee;
+        
+    public decimal Cost { get; set; }
+    public Dictionary<string, int> Ingredients { get; set; } = new();
+
+    protected CoffeeDecorator(ICoffee coffee)
     {
-        protected ICoffee coffee;
-        protected string name;
+        this.coffee = coffee;
+    }
         
-        public decimal Cost { get; set; }
-        public Dictionary<string, int> Ingredients { get; set; }
-
-        protected CoffeeDecorator(string name)
+    public virtual void Add()
+    {
+        foreach (string key in Ingredients.Keys)
         {
-            this.name = name;
+            if (!coffee.Ingredients.TryAdd(key, 1))
+                coffee.Ingredients[key] += 1;
         }
-        
-        public virtual void Add(ICoffee coffee)
-        {
-            coffee.Cost += Cost;
-            coffee.Ingredients[name] += 1;
-        }
-
-        public virtual void Remove(ICoffee coffee)
-        {
-            if (!coffee.Ingredients.ContainsKey(name)) return;
-            
-            coffee.Cost -= Cost;
-            int count = coffee.Ingredients[name] - 1;
-            coffee.Ingredients[name] = count < 0 ? 0 : count;
-        }
-
-        public abstract void Brew(ICoffee coffee);
+        Ingredients = coffee.Ingredients;
+        Cost += coffee.Cost;
     }
 
-    public class EspressoShotDecorator : CoffeeDecorator
+    public virtual void Remove()
     {
-        public EspressoShotDecorator(string name) : base(name)
+        foreach (string key in Ingredients.Keys.Intersect(coffee.Ingredients.Keys).ToList())
         {
-            Cost = .3M;
-            Ingredients.Add(name, 1);
+            if (!coffee.Ingredients.TryGetValue(key, out int count) || count <= 0) continue;
+            coffee.Ingredients[key] -= 1;
         }
-
-        public override void Brew(ICoffee coffee)
-        {
-            throw new System.NotImplementedException();
-        }
+        Ingredients = coffee.Ingredients;
+        coffee.Cost -= Cost;
     }
 
-    public class SyrupDecorator : CoffeeDecorator
+    public abstract void Brew();
+}
+
+public class EspressoShotDecorator : CoffeeDecorator
+{
+    public EspressoShotDecorator(ICoffee coffee) : base(coffee)
     {
-        public SyrupDecorator(string name) : base(name)
-        {
-            Cost = .5M;
-            Ingredients.Add(name, 1);
-        }
+        Cost = .3M;
+        Ingredients.Add("Espresso", 1);
+    }
+
+    public override void Brew()
+    {
+        throw new System.NotImplementedException();
+    }
+}
+
+public class SyrupDecorator : CoffeeDecorator
+{
+    public SyrupDecorator(ICoffee coffee) : base(coffee)
+    {
+        Cost = .5M;
+        Ingredients.Add("Hazelnut Syrup", 1);
+    }
         
-        public override void Brew(ICoffee coffee)
-        {
-            throw new System.NotImplementedException();
-        }
+    public override void Brew()
+    {
+        throw new System.NotImplementedException();
     }
 }
