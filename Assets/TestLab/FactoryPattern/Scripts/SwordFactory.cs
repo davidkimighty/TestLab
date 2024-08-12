@@ -5,7 +5,7 @@ public class SwordFactory : WeaponFactory
 {
     [SerializeField] private Sword swordPrefab;
     
-    public override IWeapon CreateWeapon()
+    public override IWeapon Create()
     {
         IWeapon weapon = Instantiate(swordPrefab);
         return weapon;

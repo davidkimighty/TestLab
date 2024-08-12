@@ -9,5 +9,5 @@ public interface IWeapon
 
 public abstract class WeaponFactory : ScriptableObject
 {
-    public abstract IWeapon CreateWeapon();
+    public abstract IWeapon Create();
 }
