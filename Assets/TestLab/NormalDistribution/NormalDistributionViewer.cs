@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[ExecuteInEditMode]
 public class NormalDistributionViewer : MonoBehaviour
 {
     [Serializable]
@@ -25,11 +24,11 @@ public class NormalDistributionViewer : MonoBehaviour
     [SerializeField] private TMP_Text _maxText;
     [SerializeField] private TMP_Text _minText;
     [SerializeField] private TMP_Text _ndText;
-
-    private void Start()
+    
+    public void Generate()
     {
         GenerateGraph();
-        UpdateUI();
+        _ndText.text = $"Normal Distribution - {GenerateNormalDistribution(_distributionParam):0.00}";
     }
 
     private void GenerateGraph()
@@ -54,15 +53,6 @@ public class NormalDistributionViewer : MonoBehaviour
         Camera.main.transform.position = pos;
     }
 
-    private void UpdateUI()
-    {
-        _meanText.text = $"Mean - {_distributionParam.Mean}";
-        _sdText.text = $"Standard Deviation - {_distributionParam.StandardDeviation}";
-        _maxText.text = $"Max - {_distributionParam.MaxValue}";
-        _minText.text = $"Min - {_distributionParam.MinValue}";
-        _ndText.text = $"Normal Distribution - {GenerateNormalDistribution(_distributionParam):0.00}";
-    }
-
     private float GenerateNormalDistribution(DistributionParameters param)
     {
         float r1 = 1f - Random.value;
@@ -82,7 +72,9 @@ public class NormalDistributionViewer : MonoBehaviour
 
     private void OnValidate()
     {
-        GenerateGraph();
-        UpdateUI();
+        _meanText.text = $"Mean - {_distributionParam.Mean}";
+        _sdText.text = $"Standard Deviation - {_distributionParam.StandardDeviation}";
+        _maxText.text = $"Max - {_distributionParam.MaxValue}";
+        _minText.text = $"Min - {_distributionParam.MinValue}";
     }
 }
