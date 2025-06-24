@@ -1,48 +1,36 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class GoapAgent : MonoBehaviour
 {
-    public float Hunger = 100f;
-    public float Stamina = 100f;
-
-    [SerializeField] private Sensor _findFoodSensor;
-    [SerializeField] private Transform _bush;
+    [SerializeField] private Sheep _sheep;
+    [SerializeField] private Bush _bush;
+    
+    [SerializeField] private TMP_Text _goalText;
+    [SerializeField] private TMP_Text _planText;
     
     private NavMeshAgent _navMeshAgent;
-    private GameObject _target;
-    private Vector3 _destination;
+    private IGoapPlanner _planner;
 
     private AgentGoal _previousGoal;
-    public AgentGoal CurrentGoal;
-    public ActionPlan ActionPlan;
-    public AgentAction CurrentAction;
+    private AgentGoal _currentGoal;
+    private ActionPlan _actionPlan;
+    private AgentAction _currentAction;
 
     public Dictionary<string, AgentBelief> Beliefs;
     public HashSet<AgentAction> Actions;
     public HashSet<AgentGoal> Goals;
-    private IGoapPlanner _planner;
-    private float _statTime = 0f;
-
+    
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _planner = new GoapPlanner();
     }
     
-    private void OnEnable()
-    {
-        _findFoodSensor.OnTargetChanged += HandleTargetChanged;
-    }
-
-    private void OnDisable()
-    {
-        _findFoodSensor.OnTargetChanged -= HandleTargetChanged;
-    }
-
     private void Start()
     {
         SetupBeliefs();
@@ -52,47 +40,44 @@ public class GoapAgent : MonoBehaviour
 
     private void Update()
     {
-        UpdateStats();
-        
-        if (CurrentAction == null)
+        if (_currentAction == null)
         {
             CalculatePlan();
+            
+            _goalText.text = _currentGoal == null ? "Goal: " : $"Goal: {_currentGoal.Name}";
+            StringBuilder builder = new();
+            foreach (var plan in _actionPlan.Actions)
+                builder.Append($"{plan.Name}({plan.Cost}), ");
+            _planText.text = $"Plan: {builder.ToString()}";
 
-            if (ActionPlan != null && ActionPlan.Actions.Count > 0) 
+            if (_actionPlan != null && _actionPlan.Actions.Count > 0) 
             {
                 _navMeshAgent.ResetPath();
 
-                CurrentGoal = ActionPlan.AgentGoal;
-                Debug.Log($"Goal: {CurrentGoal.Name}, plans: {ActionPlan.Actions.Count}");
-                CurrentAction = ActionPlan.Actions.Pop();
-                Debug.Log($"Popped action: {CurrentAction.Name}");
-                CurrentAction.Start();
+                _currentGoal = _actionPlan.AgentGoal;
+                Debug.Log($"Goal: {_currentGoal.Name}, plans: {_actionPlan.Actions.Count}");
+                _currentAction = _actionPlan.Actions.Pop();
+                Debug.Log($"Popped action: {_currentAction.Name}");
+                _currentAction.Start();
             }
         }
 
-        if (ActionPlan != null && CurrentAction != null)
+        if (_actionPlan != null && _currentAction != null)
         {
-            CurrentAction.Update(Time.deltaTime);
-            if (CurrentAction.Complete)
+            _currentAction.Update(Time.deltaTime);
+            if (_currentAction.Complete)
             {
-                Debug.Log($"{CurrentAction.Name} complete");
-                CurrentAction.Stop();
-                CurrentAction = null;
-                if (ActionPlan.Actions.Count == 0)
+                Debug.Log($"{_currentAction.Name} complete");
+                _currentAction.Stop();
+                _currentAction = null;
+                if (_actionPlan.Actions.Count == 0)
                 {
                     Debug.Log($"plan complete");
-                    _previousGoal = CurrentGoal;
-                    CurrentGoal = null;
+                    _previousGoal = _currentGoal;
+                    _currentGoal = null;
                 }
             }
         }
-    }
-
-    private void HandleTargetChanged()
-    {
-        Debug.Log("Target changed.");
-        CurrentAction = null;
-        CurrentGoal = null;
     }
     
     private void SetupBeliefs()
@@ -103,34 +88,34 @@ public class GoapAgent : MonoBehaviour
         factory.AddBelief("Nothing", () => false);
         factory.AddBelief("AgentIdle", () => !_navMeshAgent.hasPath);
         factory.AddBelief("AgentMoving", () => _navMeshAgent.hasPath);
-        factory.AddBelief("AgentStaminaLow", () => Stamina < 10);
-        factory.AddBelief("AgentStaminaHigh", () => Stamina >= 50);
-        factory.AddBelief("AgentHungerLow", () => Hunger < 10);
-        factory.AddBelief("AgentHungerHigh", () => Hunger >= 50);
+        factory.AddBelief("AgentStaminaLow", () => _sheep.Stat.Stamina < 10);
+        factory.AddBelief("AgentStaminaHigh", () => _sheep.Stat.Stamina >= 50);
+        factory.AddBelief("AgentHungerLow", () => _sheep.Stat.Hunger < 10);
+        factory.AddBelief("AgentHungerHigh", () => _sheep.Stat.Hunger >= 50);
         
-        factory.AddLocationBelief("AgentAtBush", 0.1f, _bush);
+        factory.AddLocationBelief("AgentAtBush", 0.1f, _bush.transform);
     }
     
     private void SetupActions()
     {
         Actions = new HashSet<AgentAction>();
-        Actions.Add(new AgentAction.Builder("Relax", this)
-            .WithStrategy(new IdleStrategy(5))
+        Actions.Add(new AgentAction.Builder("Relax")
+            .WithStrategy(new IdleStrategy(_sheep, 5))
             .AddEffect(Beliefs["Nothing"])
             .Build());
         
-        Actions.Add(new AgentAction.Builder("WanderAround", this)
-            .WithStrategy(new WanderStrategy(_navMeshAgent, 1))
+        Actions.Add(new AgentAction.Builder("WanderAround")
+            .WithStrategy(new WanderStrategy(_sheep, _navMeshAgent, 1))
             .AddEffect(Beliefs["AgentMoving"])
             .Build());
         
-        Actions.Add(new AgentAction.Builder("MoveToEat", this)
-            .WithStrategy(new MoveStrategy(_navMeshAgent, () => _bush.position))
+        Actions.Add(new AgentAction.Builder("MoveToEat")
+            .WithStrategy(new MoveStrategy(_sheep, _navMeshAgent, () => _bush.transform.position))
             .AddEffect(Beliefs["AgentAtBush"])
             .Build());
 
-        Actions.Add(new AgentAction.Builder("Eat", this)
-            .WithStrategy(new IdleStrategy(3f))
+        Actions.Add(new AgentAction.Builder("Eat")
+            .WithStrategy(new EatStrategy(_sheep, _bush))
             .AddPrecondition(Beliefs["AgentAtBush"])
             .AddEffect(Beliefs["AgentHungerHigh"])
             .Build());
@@ -157,27 +142,14 @@ public class GoapAgent : MonoBehaviour
     
     private void CalculatePlan()
     {
-        var priorityLevel = CurrentGoal?.Priority ?? 0;
-
+        float priority = _currentGoal?.Priority ?? 0;
         HashSet<AgentGoal> goalsToCheck = Goals;
 
-        if (CurrentGoal != null)
-        {
-            goalsToCheck = new HashSet<AgentGoal>(Goals.Where(g => g.Priority > priorityLevel));
-        }
+        if (_currentGoal != null)
+            goalsToCheck = new HashSet<AgentGoal>(Goals.Where(g => g.Priority > priority));
 
-        var potentialPlan = _planner.Plan(this, goalsToCheck, _previousGoal);
+        ActionPlan potentialPlan = _planner.Plan(this, goalsToCheck, _previousGoal);
         if (potentialPlan != null)
-            ActionPlan = potentialPlan;
-    }
-
-    private void UpdateStats()
-    {
-        _statTime += Time.deltaTime;
-        if (_statTime > 2f)
-        {
-            Hunger += Vector3.Distance(transform.position, _bush.position) < 0.15f ? 20f : -5f;
-            _statTime = 0f;
-        }
+            _actionPlan = potentialPlan;
     }
 }

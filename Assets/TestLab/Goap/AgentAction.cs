@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 public class AgentAction
 {
@@ -12,15 +11,14 @@ public class AgentAction
     private IActionStrategy _strategy;
 
     public bool Complete => _strategy.Complete;
-    private MonoBehaviour _mono;
+    
 
-    private AgentAction(string name, MonoBehaviour mono)
+    private AgentAction(string name)
     {
         Name = name;
-        _mono = mono;
     }
 
-    public void Start() => _strategy.Start(_mono);
+    public void Start() => _strategy.Start();
 
     public void Update(float delaTime)
     {
@@ -39,9 +37,9 @@ public class AgentAction
     {
         private readonly AgentAction _action;
 
-        public Builder(string name, MonoBehaviour mono)
+        public Builder(string name)
         {
-            _action = new AgentAction(name, mono)
+            _action = new AgentAction(name)
             {
                 Cost = 1
             };

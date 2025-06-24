@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -9,68 +8,71 @@ public interface IActionStrategy
     bool CanPerform { get; }
     bool Complete { get; }
 
-    void Start(MonoBehaviour mono) { }
+    void Start() { }
     void Update(float deltaTime) { }
     void Stop() { }
 }
 
 public class IdleStrategy : IActionStrategy
 {
-    private IEnumerator _strategy;
+    private Sheep _sheep;
     private float _duration;
+    private float _elapsedTime;
+    
     public bool CanPerform => true;
     public bool Complete { get; private set; }
 
-    public IdleStrategy(float duration)
+    public IdleStrategy(Sheep sheep, float duration)
     {
+        _sheep = sheep;
         _duration = duration;
     }
 
-    public void Start(MonoBehaviour mono)
+    public void Start()
     {
-        if (_strategy != null)
-            mono.StopCoroutine(_strategy);
-        _strategy = Timer(_duration);
-        mono.StartCoroutine(_strategy);
-    }
-    
-    private IEnumerator Timer(float duration)
-    {
-        float elapsedTime = 0f;
         Complete = false;
-        
-        while (duration > elapsedTime)
-        {
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        _sheep.IdleAnimation();
+    }
 
-        Complete = true;
+    public void Update(float deltaTime)
+    {
+        _elapsedTime += deltaTime;
+        
+        if (_elapsedTime > _duration)
+        {
+            _sheep.Resting();
+            Complete = true;
+            _elapsedTime = 0f;
+        }
     }
 }
 
 public class WanderStrategy : IActionStrategy
 {
+    private Sheep _sheep;
     private readonly NavMeshAgent _agent;
     private readonly float _wanderRadius;
     
     public bool CanPerform => !Complete;
     public bool Complete => _agent.remainingDistance <= 0.1f && !_agent.pathPending;
 
-    public WanderStrategy(NavMeshAgent agent, float wanderRadius)
+    public WanderStrategy(Sheep sheep, NavMeshAgent agent, float wanderRadius)
     {
+        _sheep = sheep;
         _agent = agent;
         _wanderRadius = wanderRadius;
     }
 
-    public void Start(MonoBehaviour mono)
+    public void Start()
     {
+        _sheep.BounceAnimation();
+        
         for (int i = 0; i < 5; i++)
         {
             Vector3 randomDirection = (Random.insideUnitSphere * _wanderRadius);
             randomDirection.y = 0;
 
-            if (NavMesh.SamplePosition(_agent.transform.position + randomDirection, out NavMeshHit hit, _wanderRadius, 1))
+            if (NavMesh.SamplePosition(_sheep.transform.position + randomDirection, out NavMeshHit hit, _wanderRadius, 1))
             {
                 Debug.Log("Destination set");
                 _agent.SetDestination(hit.position);
@@ -78,29 +80,74 @@ public class WanderStrategy : IActionStrategy
             }
         }
     }
+    
+    public void Update(float deltaTime)
+    {
+        _sheep.Moving();
+    }
 }
 
 public class MoveStrategy : IActionStrategy
 {
+    private Sheep _sheep;
     private readonly NavMeshAgent _agent;
     private readonly Func<Vector3> _destination;
 
     public bool CanPerform => !Complete;
     public bool Complete => _agent.remainingDistance <= 0.1f && !_agent.pathPending;
 
-    public MoveStrategy(NavMeshAgent agent, Func<Vector3> destination)
+    public MoveStrategy(Sheep sheep, NavMeshAgent agent, Func<Vector3> destination)
     {
+        _sheep = sheep;
         _agent = agent;
         _destination = destination;
     }
 
-    public void Start(MonoBehaviour mono)
+    public void Start()
     {
+        _sheep.BounceAnimation();
         _agent.SetDestination(_destination());
+    }
+
+    public void Update(float deltaTime)
+    {
+        _sheep.Moving();
     }
 
     public void Stop()
     {
         _agent.ResetPath();
+    }
+}
+
+public class EatStrategy : IActionStrategy
+{
+    private Sheep _sheep;
+    private Bush _bush;
+    
+    public bool CanPerform => !Complete && _bush.CanEat();
+    public bool Complete { get; private set; }
+
+    public EatStrategy(Sheep sheep, Bush bush)
+    {
+        _sheep = sheep;
+        _bush = bush;
+    }
+    
+    public void Start()
+    {
+        Complete = false;
+        _sheep.EatAnimation();
+    }
+
+    public void Update(float deltaTime)
+    {
+        if (!_sheep.Eating(deltaTime, _bush))
+            Complete = true;
+    }
+    
+    public void Stop()
+    {
+        _sheep.IdleAnimation();
     }
 }

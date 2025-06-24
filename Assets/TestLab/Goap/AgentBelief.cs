@@ -19,14 +19,6 @@ public class BeliefFactory
             .WithCondition(condition)
             .Build());
     }
-
-    public void AddSensorBelief(string key, Sensor sensor)
-    {
-        _beliefs.Add(key, new AgentBelief.Builder(key)
-            .WithCondition(() => sensor.IsTargetInRange)
-            .WithLocation(() => sensor.TargetPosition)
-            .Build());
-    }
     
     public void AddLocationBelief(string key, float distance, Transform locationCondition)
     {
