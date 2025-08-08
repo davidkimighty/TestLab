@@ -2,7 +2,7 @@ using System;
 
 public interface ICounterView
 {
-    event Action OnCountClick;
+    event Action OnCount;
 
     void UpdateCount(int count);
 }

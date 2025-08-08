@@ -1,29 +1,35 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelView : MonoBehaviour
+public class LevelView : MonoBehaviour, ILevelView
 {
+    public event Action OnGainExp;
+
     public TextMeshProUGUI LevelText;
-    public Button LevelUpButton;
+    public Button GainExpButton;
 
     private LevelViewModel _viewModel;
 
-    private void Start()
+    private void OnDestroy()
     {
-        var viewModel = new LevelViewModel(new LevelModel());
-        Setup(viewModel); // testing
+        if (_viewModel != null)
+            _viewModel.OnUpdate -= UpdateLevel;
     }
 
     public void Setup(LevelViewModel viewModel)
     {
         _viewModel = viewModel;
-        LevelUpButton.onClick.AddListener(() => _viewModel.LevelUp());
-        _viewModel.OnLevelUp += UpdateLevel;
+        _viewModel.OnUpdate += UpdateLevel;
+        UpdateLevel();
+
+        GainExpButton.onClick.AddListener(() => OnGainExp?.Invoke());
     }
 
     private void UpdateLevel()
     {
-        LevelText.text = _viewModel.Level.ToString();
+        LevelText.text = _viewModel.Level;
     }
+
 }

@@ -1,4 +1,8 @@
+using System;
+
 public interface IHealthView
 {
-    void UpdateHealth(int health);
+    event Action OnTakeDamage;
+
+    void Initialize(HealthModel model);
 }

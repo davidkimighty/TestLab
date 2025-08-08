@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class CounterView : MonoBehaviour, ICounterView
 {
-    public event Action OnCountClick;
+    public event Action OnCount;
 
     public Button CountButton;
     public TextMeshProUGUI CounterText;
 
     private void Start()
     {
-        CountButton.onClick.AddListener(HandleClick);
+        CountButton.onClick.AddListener(RaiseCount);
     }
 
     public void UpdateCount(int count)
@@ -20,8 +20,8 @@ public class CounterView : MonoBehaviour, ICounterView
         CounterText.text = count.ToString();
     }
 
-    private void HandleClick()
+    private void RaiseCount()
     {
-        OnCountClick?.Invoke();
+        OnCount?.Invoke();
     }
 }

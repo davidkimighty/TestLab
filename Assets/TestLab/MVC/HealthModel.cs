@@ -1,18 +1,25 @@
 using System;
-using UnityEngine;
 
-[CreateAssetMenu(fileName = "HealthModel", menuName = "TestLab/MVC/HealthModel")]
-public class HealthModel : ScriptableObject
+public class HealthModel
 {
     public event Action<int> OnHealthChanged;
 
-    public int Health { get; private set; } = 100;
+    private int _health;
+    public int Health => _health;
+
+    public HealthModel(int health)
+    {
+        _health = health;
+    }
 
     public void TakeDamage(int damage)
     {
-        Health -= damage;
-        if (Health < 0)
-            Health = 0;
-        OnHealthChanged?.Invoke(Health);
+        _health -= damage;
+        if (_health < 0)
+        {
+            _health = 0;
+            return;
+        }
+        OnHealthChanged?.Invoke(_health);
     }
 }

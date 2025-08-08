@@ -1,18 +1,21 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-    public HealthModel Model;
-    public Button TakeDamageButton;
+    private IHealthView _view;
+    private HealthModel _model;
 
     private void Start()
     {
-        TakeDamageButton.onClick.AddListener(HandleTakeDamage);
+        _model = new HealthModel(100);
+        _view = GetComponent<IHealthView>();
+        _view.Initialize(_model);
+
+        _view.OnTakeDamage += HandleTakeDamage;
     }
 
     private void HandleTakeDamage()
     {
-        Model.TakeDamage(10);
+        _model.TakeDamage(10);
     }
 }

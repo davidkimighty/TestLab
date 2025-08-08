@@ -1,11 +1,25 @@
 public class LevelModel
 {
-    public int Level { get; private set; }
+    private float _experience;
+    private int _level;
+    public int Level => _level;
 
-    public void SetLevel(int level)
+    public LevelModel()
     {
-        if (level < 0) return;
-        
-        Level = level;
+        _experience = 0;
+        _level = 1;
+    }
+
+    public void GainExperience(float amount)
+    {
+        _experience += amount;
+        if (_experience >= 100)
+            LevelUp();
+    }
+
+    private void LevelUp()
+    {
+        _level++;
+        _experience = 0;
     }
 }

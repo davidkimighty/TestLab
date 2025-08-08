@@ -2,32 +2,27 @@ using System;
 
 public class LevelViewModel
 {
-    public Action OnLevelUp;
+    public Action OnUpdate;
 
     private LevelModel _model;
-    private int _level;
 
-    public int Level
-    {
-        get => _level;
-        set
-        {
-            _level = value;
-            RaiseLevelUp();
-        }
-    }
+    public string Level { get; private set; }
 
     public LevelViewModel(LevelModel model)
     {
         _model = model;
-        _level = model.Level;
+        UpdateViewModel();
     }
 
-    public void LevelUp()
+    public void GainExperience(float amount)
     {
-        _model.SetLevel(_model.Level + 1);
-        Level = _model.Level;
+        _model.GainExperience(amount);
+        UpdateViewModel();
     }
 
-    private void RaiseLevelUp() => OnLevelUp?.Invoke();
+    private void UpdateViewModel()
+    {
+        Level = _model.Level.ToString();
+        OnUpdate?.Invoke();
+    }
 }

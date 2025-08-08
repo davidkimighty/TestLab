@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4a9dc9a1b30ad45a83ed228c7d7783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Model: {fileID: 11400000, guid: 57f55ac595f0883459220dcf7c1624f4, type: 2}
+  TakeDamageButton: {fileID: 375523049}
   HealthText: {fileID: 1954106488}
 --- !u!114 &503511859
 MonoBehaviour:
@@ -420,8 +420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b233a296f81d49d4c9224675b48bd81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Model: {fileID: 11400000, guid: 57f55ac595f0883459220dcf7c1624f4, type: 2}
-  TakeDamageButton: {fileID: 375523049}
 --- !u!4 &503511860
 Transform:
   m_ObjectHideFlags: 0
